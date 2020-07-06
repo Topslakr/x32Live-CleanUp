@@ -1,0 +1,21 @@
+#!/bin/bash
+#Check for Silent, or near silent WAV files.
+#
+# Script REQUIRES the application 'sox' to be installed and in your path. Otherwise, it will delete ALL files.
+#
+# To run: Simply run the script from the folder containing the files to inspect. This will delete all files containing no appreciable audio.
+
+MAX=0.0001
+
+for wav in *.wav
+	do
+		V=$(sox "$wav" -n stat 2>&1 | grep "Maximum amplitude" | cut -d ":" -f 2 | sed 's/ //g')
+		if [[ $(echo "if ("$V" > "$MAX") 1 else 0" | bc) -eq 0 ]]
+#
+# For testing, you can uncomment 18, and comment 19. This will REPORT the files to be deleted, without actually deleting them.
+# Helpful if you need to tweak the value in line 8.
+#
+#			then echo "Delete $wav";
+			then rm -rfv $wav;
+		fi
+	done
