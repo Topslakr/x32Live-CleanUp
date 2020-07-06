@@ -1,0 +1,47 @@
+#!/bin/bash
+#
+# The script requires ffmpeg be installed, and in your normal 'PATH'.
+#
+# To run use script name, the input file nane, the prefix for the saved files, and finally the bit rate of the source file.
+#
+# i.e. 'Split 00000001.wav 01 48000'
+#
+# This will process the file 00000001.wav and create 32 files, 1-32, prefixed by '01-' in 48k
+#
+# 01-01.wav
+# 01-02.wav
+# 01-03.wav
+#
+
+ffmpeg -i $1 -ar $3 -acodec pcm_s32le -map_channel 0.0.0 $2-01.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.1 $2-02.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.2 $2-03.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.3 $2-04.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.4 $2-05.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.5 $2-06.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.6 $2-07.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.7 $2-08.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.8 $2-09.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.9 $2-10.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.10 $2-11.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.11 $2-12.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.12 $2-13.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.13 $2-14.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.14 $2-15.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.15 $2-16.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.16 $2-17.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.17 $2-18.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.18 $2-19.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.19 $2-20.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.20 $2-21.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.21 $2-22.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.22 $2-23.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.23 $2-24.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.24 $2-25.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.25 $2-26.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.26 $2-27.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.27 $2-28.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.28 $2-29.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.29 $2-30.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.30 $2-31.wav \
+-ar $3 -acodec pcm_s32le -map_channel 0.0.31 $2-32.wav
