@@ -1,2 +1,4 @@
 # x32Live-CleanUp
-Script to Break the Behringer x32 X-Live tracks into indivudual files, instead of one multi-track file.
+Script - Use this to Break the Behringer x32 X-Live tracks into individual files, instead of one multi-track file.
+
+Delete_Silence - Use this to DELETE any files without appreciable audio.
