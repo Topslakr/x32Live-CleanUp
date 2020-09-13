@@ -12,6 +12,9 @@
 # 01-02.wav
 # 01-03.wav
 #
+# If you're not sure what the bitrate is, you can run ffprobe against it. The final line of the output will list the Hz
+# i.e. 44100 Hz, or 48000 Hz
+#
 
 ffmpeg -i $1 -ar $3 -acodec pcm_s32le -map_channel 0.0.0 $2-01.wav \
 -ar $3 -acodec pcm_s32le -map_channel 0.0.1 $2-02.wav \
