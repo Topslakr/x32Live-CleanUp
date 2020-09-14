@@ -15,40 +15,46 @@
 #Find the same rate of the input file
 SR=$(ffprobe -loglevel quiet $1 -show_streams | grep sample_rate | sed 's,.*\(.\{5\}\)$,\1,')
 
+#Find two digits to use for the filename prefix
+PF=$(echo $1| awk '$1 {print substr($1,7,2)}')
+
+
 echo "Input File name is $1"
 echo "Source Material Sample Rate is $SR"
-echo "File Name Prefix is $2"
+echo "File Name Prefix is $PF"
+
+echo "Splitting $1 into multiple tracks. This can take a long time depending on the speed of your computer."
 
 #Split the file into individual tracks.
-ffmpeg -loglevel error -i $1 -ar $SR -acodec pcm_s32le -map_channel 0.0.0 $2-01.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.1 $2-02.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.2 $2-03.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.3 $2-04.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.4 $2-05.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.5 $2-06.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.6 $2-07.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.7 $2-08.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.8 $2-09.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.9 $2-10.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.10 $2-11.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.11 $2-12.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.12 $2-13.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.13 $2-14.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.14 $2-15.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.15 $2-16.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.16 $2-17.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.17 $2-18.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.18 $2-19.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.19 $2-20.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.20 $2-21.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.21 $2-22.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.22 $2-23.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.23 $2-24.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.24 $2-25.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.25 $2-26.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.26 $2-27.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.27 $2-28.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.28 $2-29.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.29 $2-30.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.30 $2-31.wav \
--ar $SR -acodec pcm_s32le -map_channel 0.0.31 $2-32.wav
+ffmpeg -loglevel error -i $1 -ar $SR -acodec pcm_s32le -map_channel 0.0.0 $PF-01.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.1 $PF-02.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.2 $PF-03.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.3 $PF-04.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.4 $PF-05.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.5 $PF-06.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.6 $PF-07.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.7 $PF-08.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.8 $PF-09.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.9 $PF-10.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.10 $PF-11.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.11 $PF-12.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.12 $PF-13.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.13 $PF-14.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.14 $PF-15.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.15 $PF-16.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.16 $PF-17.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.17 $PF-18.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.18 $PF-19.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.19 $PF-20.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.20 $PF-21.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.21 $PF-22.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.22 $PF-23.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.23 $PF-24.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.24 $PF-25.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.25 $PF-26.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.26 $PF-27.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.27 $PF-28.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.28 $PF-29.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.29 $PF-30.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.30 $PF-31.wav \
+-ar $SR -acodec pcm_s32le -map_channel 0.0.31 $PF-32.wav
