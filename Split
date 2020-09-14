@@ -2,21 +2,21 @@
 #
 # The script requires ffmpeg be installed, and in your normal 'PATH'.
 #
-# To run use script name, the input file nane, the prefix for the saved files, and finally the bit rate of the source file.
+# To run use script name, the input file nane, the prefix for the saved files.
 #
-# i.e. 'Split 00000001.wav 01 48000'
+# i.e. 'Split 00000001.wav 01'
 #
-# This will process the file 00000001.wav and create 32 files, 1-32, prefixed by '01-' in 48k
+# This will process the file 00000001.wav and create 32 files, 1-32, prefixed by '01-' in the sample rate of the source file.
 #
 # 01-01.wav
 # 01-02.wav
 # 01-03.wav
 #
-# If you're not sure what the bitrate is, you can run ffprobe against it. The final line of the output will list the Hz
-# i.e. 44100 Hz, or 48000 Hz
-#
+#Find the same rate of the input file
+SampleRate=$(ffprobe -loglevel quiet $1 -show_streams | grep sample_rate | sed 's,.*\(.\{5\}\)$,\1,')
 
-ffmpeg -i $1 -ar $3 -acodec pcm_s32le -map_channel 0.0.0 $2-01.wav \
+#Split the file into individual tracks.
+ffmpeg -i $1 -ar $SampleRate -acodec pcm_s32le -map_channel 0.0.0 $2-01.wav \
 -ar $3 -acodec pcm_s32le -map_channel 0.0.1 $2-02.wav \
 -ar $3 -acodec pcm_s32le -map_channel 0.0.2 $2-03.wav \
 -ar $3 -acodec pcm_s32le -map_channel 0.0.3 $2-04.wav \
