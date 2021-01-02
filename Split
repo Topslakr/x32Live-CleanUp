@@ -2,11 +2,11 @@
 #
 # The script requires ffmpeg be installed, and in your normal 'PATH'.
 #
-# To run use script name, the input file nane, the prefix for the saved files.
+# To run, use script name, and the file you wish to process.
 #
-# i.e. 'Split 00000001.wav 01'
+# i.e. 'Split 00000001.wav'
 #
-# This will process the file 00000001.wav and create 32 files, 1-32, prefixed by '01-' in the sample rate of the source file.
+# This will process the file 00000001.wav and create 32 files, 1-32, prefixed by '01-', the last two digits of the source file name and a hyphen, in the sample rate of the source file.
 #
 # 01-01.wav
 # 01-02.wav
@@ -18,11 +18,12 @@ SR=$(ffprobe -loglevel quiet $1 -show_streams | grep sample_rate | sed 's,.*\(.\
 #Find two digits to use for the filename prefix
 PF=$(echo $1| awk '$1 {print substr($1,7,2)}')
 
-
+#Print some information about the process to the terminal for confidence/confirmation.
 echo "Input File name is $1"
 echo "Source Material Sample Rate is $SR"
 echo "File Name Prefix is $PF"
 
+#Print this message, so the user knows that this can take some time.
 echo "Splitting $1 into multiple tracks. This can take a long time depending on the speed of your computer."
 
 #Split the file into individual tracks.
