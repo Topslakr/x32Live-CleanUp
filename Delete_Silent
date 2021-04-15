@@ -16,10 +16,10 @@ for wav in *.wav
 		V=$(sox "$wav" -n stat 2>&1 | grep "Maximum amplitude" | cut -d ":" -f 2 | sed 's/ //g')
 		if [[ $(echo "if ("$V" > "$MAX") 1 else 0" | bc) -eq 0 ]]
 #
-# For testing, you can uncomment 18, and comment 19. This will REPORT the files to be deleted, without actually deleting them.
+# For testing, you can uncomment line 22, and comment line 23. This will REPORT the files to be deleted, without actually deleting them.
 # Helpful if you need to tweak the value in line 8.
 #
-#			then echo "Delete $wav";
+#			then echo "Would delete $wav";
 			then rm -rfv $wav;
 		fi
 	done
