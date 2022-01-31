@@ -1,25 +1,66 @@
 #!/bin/bash
 #Check for Silent, or near silent WAV files.
 
-if [ ! -f /usr/bin/sox ];
-then
-    echo "Please install sox" && exit 0
-else
-    echo "Sox Application Installed. Proceeding."
-fi
+#Create a Safety Variable. Change this Variable to a zero to enable deleting data.
+#Otherwise, we're only going to tell you which files we *would* delete.
+safe=1
 
-
+#Define Minimum Level of Audio to be checked for
 MAX=0.0001
 
+#Detect Linux or macOS
+UNAME=$(uname)
+if [ "$UNAME" == "Linux" ] ; then
+	echo "You appear to be running Linux"
+	OS=Linux
+elif [ "$UNAME" == "Darwin" ] ; then
+	echo "You appear to be running macOS"
+	OS=macOS
+fi
+
+#We know the OS, let's check to see if sox is installed. Otherewise, quit. Lest we just delete everything!
+if [ $OS == macOS ]; 
+then
+	 if [ ! -f /opt/homebrew/opt/sox/bin/sox ]
+		then
+			echo "Please install Sox. It's available in HomeBrew" && exit 0
+		else
+			echo "Sox Application Installed. Proceeding."
+			sox=/opt/homebrew/opt/sox/bin/sox
+	fi
+else
+	echo "This is Linux"
+	if [ ! -f /usr/bin/sox ];
+		then
+	   		echo "Please install sox" && exit 0
+		else
+    		echo "Sox Application Installed. Proceeding."
+			sox=/usr/bin/sox
+	fi
+fi
+
+#Print if we're running in safe mode
+if [ $safe = 0 ]
+	then
+		echo "!!! NOT RUNNING IN SAFE MODE !!!"
+	else
+		echo "Running in Safe Mode"
+	fi
+
+#Here lies Danger. We are going to DELETE data.
 for wav in *.wav
 	do
-		V=$(sox "$wav" -n stat 2>&1 | grep "Maximum amplitude" | cut -d ":" -f 2 | sed 's/ //g')
+		V=$($sox "$wav" -n stat 2>&1 | grep "Maximum amplitude" | cut -d ":" -f 2 | sed 's/ //g')
 		if [[ $(echo "if ("$V" > "$MAX") 1 else 0" | bc) -eq 0 ]]
-#
-# For testing, you can uncomment line 22, and comment line 23. This will REPORT the files to be deleted, without actually deleting them.
-# Helpful if you need to tweak the value in line 8.
-#
-#			then echo "Would delete $wav";
-			then rm -rfv $wav;
+			then
+				if [ $safe = 0 ]
+					then
+						echo "Deleting Data"
+						rm -rfv $wav
+					else
+						echo "Running in Safe Mode"
+						echo "Would delete $wav";
+					fi
+			else echo "File $wav not slient"
 		fi
 	done
