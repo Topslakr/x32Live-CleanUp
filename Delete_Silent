@@ -56,7 +56,7 @@ for wav in *.wav
 				if [ $safe = 0 ]
 					then
 						echo "Deleting Data"
-						rm -rfv $wav
+						rm -rfv "$wav"
 					else
 						echo "Running in Safe Mode"
 						echo "Would delete $wav";
