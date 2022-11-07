@@ -1,9 +1,15 @@
 #!/bin/bash
 #RW - 11.7.2022 - Running this one script should clean up all files in a given folder. Instead of having to run each part.
 
-for WavFiles in ./000*.wav; do
-   rm SE_LOG.BIN
-   Split  $WavFiles
-   rm 000*.wav
-   Delete_Silent    
+#Delete this BIN file. It's small, but we don't need it.
+rm SE_LOG.BIN
+
+#Run Process on the file(s) in the current directoy
+for file in ./*.WAV; do 
+   echo $file;
+   Split  $file
+   Delete_Silent
 done
+
+#Delete the source 32 channel Wav files.
+rm 000*.WAV
