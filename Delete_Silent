@@ -1,6 +1,8 @@
 #!/bin/bash
 #Check for Silent, or near silent WAV files.
 
+#You will need sox, ffmpeg and bc installed on your system for this to work
+
 #Create a Safety Variable. Change this Variable to a zero to enable deleting data.
 #Otherwise, we're only going to tell you which files we *would* delete.
 safe=1
