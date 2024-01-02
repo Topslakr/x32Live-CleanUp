@@ -8,8 +8,10 @@ rm SE_LOG.BIN
 for file in ./*.WAV; do 
    echo $file;
    Split  $file
-   Delete_Silent
 done
+
+echo Deleting Silent Files
+./Delete_Silent
 
 #Delete the source 32 channel Wav files.
 rm 000*.WAV
