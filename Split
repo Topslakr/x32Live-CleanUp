@@ -16,7 +16,7 @@
 SR=$(ffprobe -loglevel quiet $1 -show_streams | grep sample_rate | sed 's,.*\(.\{5\}\)$,\1,')
 
 #Find two digits to use for the filename prefix
-PF=$(echo $1| awk '$1 {print substr($1,7,2)}')
+PF=$(echo $1 | awk '{print substr($0,9,2)}')
 
 #Print some information about the process to the terminal for confidence/confirmation.
 echo "Input File name is $1"
